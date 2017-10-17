@@ -1,18 +1,14 @@
+// global variable: the app ID of the application. This is needed to send a targetted external message
+var app_ID = "mkkkhkamidcjgkephchihlekndnjnpml";
+
 // Called when the user clicks on the browser action. tab is the currently active tab
 chrome.browserAction.onClicked.addListener(function(tab) {
+    
     chrome.tabs.sendMessage(tab.id, {name: "getReceipt"}, function(response) {
-        let fileName = Get_File_Name_To_Save_As(response.ele)
-        chrome.fileSystem.chooseEntry({type: 'saveFile'}, function(writableFileEntry) {
-            writableFileEntry.createWriter(function(writer) {
-              writer.onerror = errorHandler;
-              writer.onwriteend = function(e) {
-                console.log('write complete');
-              };
-              writer.write(new Blob(['1234567890'], {type: 'text/plain'}));
-            }, errorHandler);
-        });
+        let fileName = Get_File_Name_To_Save_As(response.ele);
+        chrome.runtime.sendMessage(app_ID, {fileName: fileName, content: response.ele});
     });
-})
+});
 
 function Save_Receipt(worker) {
 	//Adk the conscript for the page body.

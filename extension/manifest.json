@@ -18,7 +18,6 @@
     }
   ],
   "permissions": [
-    "tabs", "https://hdapps.homedepot.com/CustRecogPortal/#/purchases", "activeTab",
-    {"fileSystem": ["write"]} 
+    "tabs", "https://hdapps.homedepot.com/CustRecogPortal/#/purchases", "activeTab"
   ]
 }
